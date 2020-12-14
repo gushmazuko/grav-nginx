@@ -67,6 +67,7 @@ TZ=Europe/Berlin
 ```
 
 * Then modify `NGINX` site config `./conf/nginx/grav.conf`
+
 ```
 server {
     listen 80;
@@ -111,10 +112,9 @@ server {
     }
     ## End - PHP
 }
-
 ```
-
 * And `FPM` config `./conf/php/grav.conf`
+
 ```
 [grav]
 
@@ -133,17 +133,18 @@ pm.min_spare_servers = 1
 pm.max_spare_servers = 3
 
 chdir = /
-```
+````
 
 ## Using `Traefik` instead `port mapping` (Optional)
 * Comment theses lines in `docker-compose.yml`
+
 ```
 ports:
   - 80:80
   - 443:443
 ```
 
-* And add `Traefik` labels into `docker-compose.yml` [More Info About](https://github.com/gushmazuko/dockers_template/tree/master/traefik)
+* And add `Traefik` labels into `docker-compose.yml`  [More Info About](https://github.com/gushmazuko/dockers_template/tree/master/traefik)
 ```
 labels:
   - "traefik.enable=true"
@@ -157,5 +158,4 @@ labels:
   - "traefik.http.routers.${SERVICE}.entrypoints=web-secure"
   - "traefik.http.middlewares.${SERVICE}_https.redirectscheme.scheme=https"
   - "traefik.http.routers.${SERVICE}_redirect.middlewares=${SERVICE}_https"
-
 ```
