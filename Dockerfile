@@ -35,7 +35,8 @@ WORKDIR /usr/share/nginx
 RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
     unzip grav-admin.zip && \
     mv -T /usr/share/nginx/grav-admin /usr/share/nginx/html && \
-    rm grav-admin.zip
+    rm grav-admin.zip && \
+    rm /usr/share/nginx/html/index.html
 
 # Create cron job for Grav maintenance scripts
 # https://learn.getgrav.org/17/advanced/scheduler
