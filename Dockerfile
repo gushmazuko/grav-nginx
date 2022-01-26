@@ -35,8 +35,7 @@ WORKDIR /usr/share/nginx
 RUN curl -o grav-admin.zip -SL https://getgrav.org/download/core/grav-admin/${GRAV_VERSION} && \
     unzip grav-admin.zip && \
     mv -T /usr/share/nginx/grav-admin /usr/share/nginx/html && \
-    rm grav-admin.zip && \
-    rm /usr/share/nginx/html/index.html
+    rm grav-admin.zip
 
 # Create cron job for Grav maintenance scripts
 # https://learn.getgrav.org/17/advanced/scheduler
@@ -50,13 +49,14 @@ RUN usermod -aG www-data nginx
 
 # Replace dafault config files by provided by Grav
 # https://learn.getgrav.org/17/webservers-hosting/vps/digitalocean#configure-nginx-connection-pool
-RUN rm /etc/php/7.3/fpm/pool.d/www.conf
+RUN rm /etc/php/7.4/fpm/pool.d/www.conf
 RUN rm /etc/nginx/conf.d/default.conf
-COPY conf/php/grav.conf /etc/php/7.3/fpm/pool.d/
+COPY conf/php/grav.conf /etc/php/7.4/fpm/pool.d/
 COPY conf/nginx/grav.conf /etc/nginx/conf.d/
+COPY conf/nginx/nginx.conf /etc/nginx/
 
 # Provide container inside image for data persistence
 VOLUME ["/usr/share/nginx/html"]
 
 # Run startup script
-CMD bash -c "service php7.3-fpm start && nginx -g 'daemon off;'"
+CMD bash -c "service php7.4-fpm start && nginx -g 'daemon off;'"

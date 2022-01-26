@@ -9,7 +9,7 @@ services:
     volumes:
       - grav:/usr/share/nginx/html
 #      - ./conf/nginx/:/etc/nginx/conf.d/
-#      - ./conf/php/:/etc/php/7.3/fpm/pool.d/
+#      - ./conf/php/:/etc/php/7.4/fpm/pool.d/
     labels:
       - "traefik.enable=true"
       # http
